@@ -33,10 +33,12 @@
 		"jms/serializer": "^1.13"
 	},
 	"require-dev": {
+		"aipng/value-objects": "^0.1.5",
 		"phpstan/phpstan": "^0.10.2",
 		"phpstan/phpstan-phpunit": "^0.10.0",
 		"phpunit/phpunit": "^7.2"
 	},
 	"suggest": {
+		"aipng/value-objects": "For custom serialization of AipNg value objects"
 	}
 }
