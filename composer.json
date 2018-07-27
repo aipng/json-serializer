@@ -30,15 +30,18 @@
 	},
 	"require": {
 		"php": ">= 7.1",
+		"doctrine/cache": "^1.7",
 		"jms/serializer": "^1.13"
 	},
 	"require-dev": {
 		"aipng/value-objects": "^0.1.5",
+		"mikey179/vfsStream": "^1.6",
 		"phpstan/phpstan": "^0.10.2",
 		"phpstan/phpstan-phpunit": "^0.10.0",
 		"phpunit/phpunit": "^7.2"
 	},
 	"suggest": {
-		"aipng/value-objects": "For custom serialization of AipNg value objects"
+		"aipng/value-objects": "For custom serialization of AipNg value objects",
+		"nette/di": "To serializer service with a Nette DI extension"
 	}
 }
