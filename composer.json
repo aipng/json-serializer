@@ -9,7 +9,18 @@
 			"email": "karel.horsky@centrum.cz"
 		}
 	],
+	"autoload": {
+		"psr-4": {
+			"AipNg\\JsonSerializer\\": "src/"
+		},
+		"classmap": [
+			"src/Exception"
+		]
+	},
 	"autoload-dev": {
+		"psr-4": {
+			"AipNg\\JsonSerializerTests\\": "tests/src/"
+		},
 		"classmap": [
 			"tests/TestCase.php"
 		]
@@ -18,9 +29,12 @@
 		"sort-packages": true
 	},
 	"require": {
-		"php": ">= 7.1"
+		"php": ">= 7.1",
+		"jms/serializer": "^1.13"
 	},
 	"require-dev": {
+		"phpstan/phpstan": "^0.10.2",
+		"phpstan/phpstan-phpunit": "^0.10.0",
 		"phpunit/phpunit": "^7.2"
 	},
 	"suggest": {

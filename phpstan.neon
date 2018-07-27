@@ -1,0 +1,14 @@
+parameters:
+	autoload_directories:
+		- %rootDir%/../../../src
+		- %rootDir%/../../../tests
+
+
+	fileExtensions:
+		- php
+		- phpt
+
+
+includes:
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+	- vendor/phpstan/phpstan-phpunit/rules.neon
