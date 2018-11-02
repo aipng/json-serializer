@@ -1,4 +1,15 @@
+includes:
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+	- vendor/phpstan/phpstan-phpunit/rules.neon
+
+
 parameters:
+	level: max
+
+	paths:
+		- %rootDir%/../../../src
+		- %rootDir%/../../../tests
+
 	autoload_directories:
 		- %rootDir%/../../../src
 		- %rootDir%/../../../tests
@@ -6,9 +17,3 @@ parameters:
 
 	fileExtensions:
 		- php
-		- phpt
-
-
-includes:
-	- vendor/phpstan/phpstan-phpunit/extension.neon
-	- vendor/phpstan/phpstan-phpunit/rules.neon

@@ -9,6 +9,7 @@ cache:
 php:
   - 7.1
   - 7.2
+  - 7.3
 
 matrix:
   fast_finish: true
@@ -18,13 +19,12 @@ before_install:
 
 install:
   - composer install --no-interaction --no-suggest --no-progress
-  - composer create-project phpstan/phpstan temp/phpstan --no-dev --no-progress
   - composer create-project aipng/coding-standard temp/coding-standard --no-progress
 
 script:
   - ./vendor/bin/phpunit ./tests/
   - temp/coding-standard/phpcs ./src ./tests
-  - temp/phpstan/bin/phpstan analyze -l max ./src/
+  - vendor/bin/phpstan analyze
 
 after_failure:
   # Vytiskne obsah souborů *.actual

@@ -36,8 +36,8 @@
 	"require-dev": {
 		"aipng/value-objects": "^0.1.5",
 		"mikey179/vfsStream": "^1.6",
-		"phpstan/phpstan": "^0.10.2",
-		"phpstan/phpstan-phpunit": "^0.10.0",
+		"phpstan/phpstan": "^0.10",
+		"phpstan/phpstan-phpunit": "^0.10",
 		"phpunit/phpunit": "^7.2"
 	},
 	"suggest": {

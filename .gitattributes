@@ -1,0 +1,8 @@
+# Ignore all test and documentation with “export-ignore”.
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.travis.yml
+/phpstan.neon export-ignore
+/phpunit.xml export-ignore
+
+/tests export-ignore
