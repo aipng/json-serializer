@@ -34,7 +34,7 @@
 		"jms/serializer": "^1.13"
 	},
 	"require-dev": {
-		"aipng/value-objects": "^0.1.5",
+		"aipng/value-objects": "^1.0",
 		"mikey179/vfsStream": "^1.6",
 		"phpstan/phpstan": "^0.10",
 		"phpstan/phpstan-phpunit": "^0.10",
