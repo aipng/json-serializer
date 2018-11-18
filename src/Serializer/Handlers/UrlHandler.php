@@ -8,7 +8,7 @@ use AipNg\JsonSerializer\InvalidArgumentException;
 use AipNg\ValueObjects\Web\Url;
 use JMS\Serializer\Context;
 use JMS\Serializer\DeserializationContext;
-use JMS\Serializer\GraphNavigator;
+use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\JsonDeserializationVisitor;
 use JMS\Serializer\JsonSerializationVisitor;
 
@@ -23,13 +23,13 @@ final class UrlHandler implements
 	{
 		return [
 			[
-				'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
+				'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
 				'format' => 'json',
 				'type' => Url::class,
 				'method' => 'serializeToJson',
 			],
 			[
-				'direction' => GraphNavigator::DIRECTION_DESERIALIZATION,
+				'direction' => GraphNavigatorInterface::DIRECTION_DESERIALIZATION,
 				'format' => 'json',
 				'type' => Url::class,
 				'method' => 'deserializeFromJson',

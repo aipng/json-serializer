@@ -4,17 +4,17 @@ declare(strict_types = 1);
 
 namespace AipNg\JsonSerializer\Serializer\Adapter;
 
+use AipNg\JsonSerializer\Serializer\JsonSerializerInterface;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\SerializationContext;
-use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\SerializerInterface;
 
-final class JmsJsonSerializerAdapter implements
-	\AipNg\JsonSerializer\Serializer\JsonSerializerInterface
+final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 {
 
 	private const JSON = 'json';
@@ -28,7 +28,7 @@ final class JmsJsonSerializerAdapter implements
 	/** @var bool */
 	private $productionMode = true;
 
-	/** @var \JMS\Serializer\Serializer|null */
+	/** @var \JMS\Serializer\SerializerInterface|null */
 	private $serializer;
 
 
@@ -74,7 +74,7 @@ final class JmsJsonSerializerAdapter implements
 	}
 
 
-	private function getSerializer(): Serializer
+	private function getSerializer(): SerializerInterface
 	{
 		if (!$this->serializer) {
 			$this->serializer = $this->createSerializer();
@@ -84,7 +84,7 @@ final class JmsJsonSerializerAdapter implements
 	}
 
 
-	private function createSerializer(): Serializer
+	private function createSerializer(): SerializerInterface
 	{
 		AnnotationRegistry::registerLoader('class_exists');
 

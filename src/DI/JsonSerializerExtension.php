@@ -17,7 +17,7 @@ final class JsonSerializerExtension extends CompilerExtension
 	public const CONFIG_SERIALIZATION_HANDLERS = 'serializationHandlers';
 	public const CONFIG_PRODUCTION_MODE = 'productionMode';
 
-	private const CACHE_DIRECTORY_NAME = 'ApiSerializer.metadata';
+	private const CACHE_DIRECTORY_NAME = 'JmsJsonSerializer.metadata';
 
 	/** @var mixed[] */
 	private $defaults = [

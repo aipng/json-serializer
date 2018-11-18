@@ -8,12 +8,12 @@ use AipNg\JsonSerializer\InvalidArgumentException;
 use AipNg\ValueObjects\Web\Email;
 use JMS\Serializer\Context;
 use JMS\Serializer\DeserializationContext;
-use JMS\Serializer\GraphNavigator;
+use JMS\Serializer\GraphNavigatorInterface;
+use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonDeserializationVisitor;
 use JMS\Serializer\JsonSerializationVisitor;
 
-final class EmailHandler implements
-	\JMS\Serializer\Handler\SubscribingHandlerInterface
+final class EmailHandler implements SubscribingHandlerInterface
 {
 
 	/**
@@ -23,13 +23,13 @@ final class EmailHandler implements
 	{
 		return [
 			[
-				'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
+				'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
 				'format' => 'json',
 				'type' => Email::class,
 				'method' => 'serializeToJson',
 			],
 			[
-				'direction' => GraphNavigator::DIRECTION_DESERIALIZATION,
+				'direction' => GraphNavigatorInterface::DIRECTION_DESERIALIZATION,
 				'format' => 'json',
 				'type' => Email::class,
 				'method' => 'deserializeFromJson',

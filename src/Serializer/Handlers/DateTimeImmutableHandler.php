@@ -7,12 +7,12 @@ namespace AipNg\JsonSerializer\Serializer\Handlers;
 use AipNg\JsonSerializer\InvalidArgumentException;
 use JMS\Serializer\Context;
 use JMS\Serializer\DeserializationContext;
-use JMS\Serializer\GraphNavigator;
+use JMS\Serializer\GraphNavigatorInterface;
+use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonDeserializationVisitor;
 use JMS\Serializer\JsonSerializationVisitor;
 
-final class DateTimeImmutableHandler implements
-	\JMS\Serializer\Handler\SubscribingHandlerInterface
+final class DateTimeImmutableHandler implements SubscribingHandlerInterface
 {
 
 	/**
@@ -22,13 +22,13 @@ final class DateTimeImmutableHandler implements
 	{
 		return [
 			[
-				'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
+				'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
 				'format' => 'json',
 				'type' => \DateTimeImmutable::class,
 				'method' => 'serializeToJson',
 			],
 			[
-				'direction' => GraphNavigator::DIRECTION_DESERIALIZATION,
+				'direction' => GraphNavigatorInterface::DIRECTION_DESERIALIZATION,
 				'format' => 'json',
 				'type' => \DateTimeImmutable::class,
 				'method' => 'deserializeFromJson',
