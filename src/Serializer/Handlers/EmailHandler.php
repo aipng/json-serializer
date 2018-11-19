@@ -51,7 +51,7 @@ final class EmailHandler implements SubscribingHandlerInterface
 		Context $context
 	): string
 	{
-		return $visitor->visitString($email->getValue(), $type, $context);
+		return $visitor->visitString($email->getValue(), $type);
 	}
 
 

@@ -6,7 +6,6 @@ namespace AipNg\JsonSerializer\Serializer\Adapter;
 
 use AipNg\JsonSerializer\Serializer\JsonSerializerInterface;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
@@ -93,9 +92,6 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 			->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy)
 			->setSerializationContextFactory(function (): SerializationContext {
 				return SerializationContext::create()->setSerializeNull(true);
-			})
-			->setDeserializationContextFactory(function (): DeserializationContext {
-				return DeserializationContext::create()->setSerializeNull(true);
 			})
 			->addDefaultHandlers();
 

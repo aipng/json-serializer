@@ -48,7 +48,7 @@ final class UrlHandler implements
 	 */
 	public function serializeToJson(JsonSerializationVisitor $visitor, Url $url, array $type, Context $context): string
 	{
-		return $visitor->visitString($url->getValue(), $type, $context);
+		return $visitor->visitString($url->getValue(), $type);
 	}
 
 
