@@ -9,8 +9,8 @@ use AipNg\JsonSerializer\Serializer\Adapter\JmsJsonSerializerAdapter;
 use AipNg\JsonSerializer\Serializer\Handlers\UrlHandler;
 use AipNg\JsonSerializer\Serializer\JsonSerializerInterface;
 use AipNg\JsonSerializerTests\Serializer\Handlers\TestObject\UrlObject;
-use AipNg\JsonSerializerTests\TestCase;
 use AipNg\ValueObjects\Web\Url;
+use PHPUnit\Framework\TestCase;
 
 final class UrlHandlerTest extends TestCase
 {

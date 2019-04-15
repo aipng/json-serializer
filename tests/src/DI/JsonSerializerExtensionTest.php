@@ -8,12 +8,12 @@ use AipNg\JsonSerializer\DI\JsonSerializerExtension;
 use AipNg\JsonSerializer\InvalidArgumentException;
 use AipNg\JsonSerializer\Serializer\Handlers\EmailHandler;
 use AipNg\JsonSerializer\Serializer\JsonSerializerInterface;
-use AipNg\JsonSerializerTests\TestCase;
 use AipNg\ValueObjects\Web\Email;
 use Nette\DI\Compiler;
 use Nette\DI\Container;
 use Nette\DI\ContainerLoader;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase;
 
 final class JsonSerializerExtensionTest extends TestCase
 {

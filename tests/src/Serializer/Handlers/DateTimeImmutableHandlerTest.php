@@ -9,7 +9,7 @@ use AipNg\JsonSerializer\Serializer\Adapter\JmsJsonSerializerAdapter;
 use AipNg\JsonSerializer\Serializer\Handlers\DateTimeImmutableHandler;
 use AipNg\JsonSerializer\Serializer\JsonSerializerInterface;
 use AipNg\JsonSerializerTests\Serializer\Handlers\TestObject\DateTimeImmutableObject;
-use AipNg\JsonSerializerTests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 final class DateTimeImmutableHandlerTest extends TestCase
 {

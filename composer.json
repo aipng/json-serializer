@@ -20,10 +20,7 @@
 	"autoload-dev": {
 		"psr-4": {
 			"AipNg\\JsonSerializerTests\\": "tests/src/"
-		},
-		"classmap": [
-			"tests/TestCase.php"
-		]
+		}
 	},
 	"config": {
 		"sort-packages": true
@@ -36,9 +33,9 @@
 	"require-dev": {
 		"aipng/value-objects": "^1.0",
 		"mikey179/vfsStream": "^1.6",
-		"phpstan/phpstan": "^0.10",
-		"phpstan/phpstan-phpunit": "^0.10",
-		"phpunit/phpunit": "^7.2"
+		"phpstan/phpstan": "^0.11",
+		"phpstan/phpstan-phpunit": "^0.11",
+		"phpunit/phpunit": "^8.1"
 	},
 	"suggest": {
 		"aipng/value-objects": "For custom serialization of AipNg value objects",

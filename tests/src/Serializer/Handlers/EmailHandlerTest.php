@@ -9,8 +9,8 @@ use AipNg\JsonSerializer\Serializer\Adapter\JmsJsonSerializerAdapter;
 use AipNg\JsonSerializer\Serializer\Handlers\EmailHandler;
 use AipNg\JsonSerializer\Serializer\JsonSerializerInterface;
 use AipNg\JsonSerializerTests\Serializer\Handlers\TestObject\EmailObject;
-use AipNg\JsonSerializerTests\TestCase;
 use AipNg\ValueObjects\Web\Email;
+use PHPUnit\Framework\TestCase;
 
 final class EmailHandlerTest extends TestCase
 {
