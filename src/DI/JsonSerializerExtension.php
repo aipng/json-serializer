@@ -8,29 +8,27 @@ use AipNg\JsonSerializer\InvalidArgumentException;
 use AipNg\JsonSerializer\Serializer\Adapter\JmsJsonSerializerAdapter;
 use Nette\DI\CompilerExtension;
 use Nette\DI\ContainerBuilder;
-use Nette\DI\ServiceDefinition;
+use Nette\DI\Definitions\ServiceDefinition;
+use Nette\Schema\Expect;
+use Nette\Schema\Schema;
 
 final class JsonSerializerExtension extends CompilerExtension
 {
 
-	public const CONFIG_TEMPORARY_DIRECTORY = 'temporaryDirectory';
-	public const CONFIG_SERIALIZATION_HANDLERS = 'serializationHandlers';
-	public const CONFIG_PRODUCTION_MODE = 'productionMode';
-
 	private const CACHE_DIRECTORY_NAME = 'JmsJsonSerializer.metadata';
 
-	/** @var mixed[] */
-	private $defaults = [
-		self::CONFIG_TEMPORARY_DIRECTORY => null,
-		self::CONFIG_PRODUCTION_MODE => true,
-		self::CONFIG_SERIALIZATION_HANDLERS => [],
-	];
+	/** @var \AipNg\JsonSerializer\DI\JsonSerializerConfig */
+	protected $config;
+
+
+	public function getConfigSchema(): Schema
+	{
+		return Expect::from(new JsonSerializerConfig);
+	}
 
 
 	public function loadConfiguration(): void
 	{
-		$this->validateConfig($this->defaults);
-
 		$builder = $this->getContainerBuilder();
 
 		$this->registerSerializer($builder);
@@ -47,7 +45,7 @@ final class JsonSerializerExtension extends CompilerExtension
 
 	private function getCacheDirectory(): string
 	{
-		$temporaryDirectory = $this->config[self::CONFIG_TEMPORARY_DIRECTORY];
+		$temporaryDirectory = $this->config->temporaryDirectory;
 
 		if (!($temporaryDirectory && is_writable($temporaryDirectory))) {
 			throw new InvalidArgumentException(sprintf(
@@ -76,16 +74,14 @@ final class JsonSerializerExtension extends CompilerExtension
 				$this->getCacheDirectory(),
 			])
 			->addSetup('setProductionMode', [
-				$this->config[self::CONFIG_PRODUCTION_MODE],
+				$this->config->productionMode,
 			]);
 	}
 
 
 	private function registerSerializationHandlers(ContainerBuilder $builder, ServiceDefinition $serializerDefinition): void
 	{
-		$serializationHandlers = $this->config[self::CONFIG_SERIALIZATION_HANDLERS];
-
-		foreach ($serializationHandlers as $serializationHandlerClass) {
+		foreach ($this->config->serializationHandlers as $serializationHandlerClass) {
 			$handlerDefinitionName = $this->registerSerializationHandlerDefinition($builder, $serializationHandlerClass);
 
 			$serializerDefinition->addSetup('addSubscribingHandler', [
