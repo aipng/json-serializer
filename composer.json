@@ -40,6 +40,6 @@
 	},
 	"suggest": {
 		"aipng/value-objects": "For custom serialization of AipNg value objects",
-		"nette/di": "To serializer service with a Nette DI extension"
+		"nette/di": "To serializer service with a Nette DI extension (use 3.x)"
 	}
 }
