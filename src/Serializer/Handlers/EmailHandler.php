@@ -44,12 +44,7 @@ final class EmailHandler implements SubscribingHandlerInterface
 	 * @param mixed[] $type
 	 * @param \JMS\Serializer\Context $context
 	 */
-	public function serializeToJson(
-		JsonSerializationVisitor $visitor,
-		Email $email,
-		array $type,
-		Context $context
-	): string
+	public function serializeToJson(JsonSerializationVisitor $visitor, Email $email, array $type, Context $context): string
 	{
 		return $visitor->visitString($email->getValue(), $type);
 	}

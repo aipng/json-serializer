@@ -9,11 +9,11 @@ use AipNg\ValueObjects\Web\Url;
 use JMS\Serializer\Context;
 use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\GraphNavigatorInterface;
+use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonDeserializationVisitor;
 use JMS\Serializer\JsonSerializationVisitor;
 
-final class UrlHandler implements
-	\JMS\Serializer\Handler\SubscribingHandlerInterface
+final class UrlHandler implements SubscribingHandlerInterface
 {
 
 	/**

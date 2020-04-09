@@ -54,14 +54,12 @@ final class JsonSerializerExtension extends CompilerExtension
 			));
 		}
 
-		$cacheDirectory = sprintf(
+		return sprintf(
 			'%s%s%s',
 			$temporaryDirectory,
 			DIRECTORY_SEPARATOR,
 			self::CACHE_DIRECTORY_NAME
 		);
-
-		return $cacheDirectory;
 	}
 
 
