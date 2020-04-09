@@ -63,12 +63,10 @@ final class UrlHandler implements SubscribingHandlerInterface
 	public function deserializeFromJson(JsonDeserializationVisitor $visitor, string $url, array $type, DeserializationContext $context): Url
 	{
 		try {
-			$deserializedUrl = new Url($url);
+			return Url::from($url);
 		} catch (\AipNg\ValueObjects\InvalidArgumentException $e) {
 			throw new InvalidArgumentException('Unable to deserialize given URL!', 0, $e);
 		}
-
-		return $deserializedUrl;
 	}
 
 }

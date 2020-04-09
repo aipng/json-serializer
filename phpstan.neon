@@ -17,3 +17,7 @@ parameters:
 
 	fileExtensions:
 		- php
+
+	ignoreErrors:
+		- '#expects class-string#'
+		- '#Unable to resolve the template type T#'

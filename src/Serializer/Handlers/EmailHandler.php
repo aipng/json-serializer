@@ -56,15 +56,10 @@ final class EmailHandler implements SubscribingHandlerInterface
 	 * @param mixed[] $type
 	 * @param \JMS\Serializer\DeserializationContext $context
 	 */
-	public function deserializeFromJson(
-		JsonDeserializationVisitor $visitor,
-		string $email,
-		array $type,
-		DeserializationContext $context
-	): ?Email
+	public function deserializeFromJson(JsonDeserializationVisitor $visitor, string $email, array $type, DeserializationContext $context): ?Email
 	{
 		try {
-			return $email ? new Email($email) : null;
+			return $email ? Email::from($email) : null;
 		} catch (\AipNg\ValueObjects\InvalidArgumentException $e) {
 			throw new InvalidArgumentException('Unable to deserialize given e-mail!', 0, $e);
 		}
