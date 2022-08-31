@@ -43,11 +43,10 @@ final class UrlHandler implements SubscribingHandlerInterface
 	 * @param \AipNg\ValueObjects\Web\Url $url
 	 * @param mixed[] $type
 	 * @param \JMS\Serializer\Context $context
-	 *
-	 * @return string
 	 */
 	public function serializeToJson(JsonSerializationVisitor $visitor, Url $url, array $type, Context $context): string
 	{
+		/** @var string */
 		return $visitor->visitString($url->getValue(), $type);
 	}
 

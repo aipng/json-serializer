@@ -46,6 +46,7 @@ final class EmailHandler implements SubscribingHandlerInterface
 	 */
 	public function serializeToJson(JsonSerializationVisitor $visitor, Email $email, array $type, Context $context): string
 	{
+		/** @var string */
 		return $visitor->visitString($email->getValue(), $type);
 	}
 

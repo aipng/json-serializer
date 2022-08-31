@@ -34,8 +34,8 @@
 		"aipng/value-objects": "^2.1",
 		"mikey179/vfsstream": "^1.6",
 		"nette/di": "^3.0",
-		"phpstan/phpstan": "^0.12.18",
-		"phpstan/phpstan-phpunit": "^0.12.6",
+		"phpstan/phpstan": "^1.8.2",
+		"phpstan/phpstan-phpunit": "^1.1.1",
 		"phpunit/phpunit": "^9.1"
 	},
 	"suggest": {

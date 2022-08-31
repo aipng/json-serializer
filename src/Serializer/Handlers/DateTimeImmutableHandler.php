@@ -50,6 +50,7 @@ final class DateTimeImmutableHandler implements SubscribingHandlerInterface
 		Context $context
 	): string
 	{
+		/** @var string */
 		return $visitor->visitString($immutable->format(DATE_ATOM), $type);
 	}
 
