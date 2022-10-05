@@ -7,11 +7,9 @@ namespace AipNg\JsonSerializer\Serializer;
 interface JsonSerializerInterface
 {
 
-	/** @param mixed $data */
-	public function serialize($data): string;
+	public function serialize(mixed $data): string;
 
 
-	/** @return mixed */
-	public function deserialize(string $json, string $type);
+	public function deserialize(string $json, string $type): mixed;
 
 }

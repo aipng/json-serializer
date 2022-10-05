@@ -12,13 +12,13 @@ use Nette\DI\Definitions\ServiceDefinition;
 use Nette\Schema\Expect;
 use Nette\Schema\Schema;
 
+/**
+ * @property \AipNg\JsonSerializer\DI\JsonSerializerConfig $config
+ */
 final class JsonSerializerExtension extends CompilerExtension
 {
 
 	private const CACHE_DIRECTORY_NAME = 'JmsJsonSerializer.metadata';
-
-	/** @var \AipNg\JsonSerializer\DI\JsonSerializerConfig */
-	protected $config;
 
 
 	public function getConfigSchema(): Schema
@@ -112,7 +112,7 @@ final class JsonSerializerExtension extends CompilerExtension
 	{
 		try {
 			$className = (new \ReflectionClass($handler))->getShortName();
-		} catch (\ReflectionException $e) {
+		} catch (\ReflectionException) {
 			$className = $handler;
 		}
 

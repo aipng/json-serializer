@@ -7,13 +7,11 @@ namespace AipNg\JsonSerializer\DI;
 final class JsonSerializerConfig
 {
 
-	/** @var string|null */
-	public $temporaryDirectory;
+	public ?string $temporaryDirectory = null;
 
-	/** @var bool */
-	public $productionMode = false;
+	public bool $productionMode = false;
 
 	/** @var string[] */
-	public $serializationHandlers = [];
+	public array $serializationHandlers = [];
 
 }

@@ -10,12 +10,8 @@ use JMS\Serializer\Annotation as Serializer;
 final class UrlObject
 {
 
-	/**
-	 * @var \AipNg\ValueObjects\Web\Url|null
-	 *
-	 * @Serializer\Type("AipNg\ValueObjects\Web\Url")
-	 */
-	private $url;
+	#[Serializer\Type(Url::class)]
+	private ?Url $url;
 
 
 	public function __construct(?Url $url = null)

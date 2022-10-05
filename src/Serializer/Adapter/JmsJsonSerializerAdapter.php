@@ -19,31 +19,22 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 	private const JSON = 'json';
 
 	/** @var \JMS\Serializer\Handler\SubscribingHandlerInterface[] */
-	private $handlers = [];
+	private array $handlers = [];
 
-	/** @var string|NULL */
-	private $annotationCacheDir;
+	private ?string $annotationCacheDir = null;
 
-	/** @var bool */
-	private $productionMode = true;
+	private bool $productionMode = true;
 
-	/** @var \JMS\Serializer\SerializerInterface|null */
-	private $serializer;
+	private ?SerializerInterface $serializer = null;
 
 
-	/**
-	 * @inheritdoc
-	 */
-	public function serialize($data): string
+	public function serialize(mixed $data): string
 	{
 		return $this->getSerializer()->serialize($data, self::JSON);
 	}
 
 
-	/**
-	 * @inheritdoc
-	 */
-	public function deserialize(string $json, string $type)
+	public function deserialize(string $json, string $type): mixed
 	{
 		return $this->getSerializer()->deserialize($json, $type, self::JSON);
 	}

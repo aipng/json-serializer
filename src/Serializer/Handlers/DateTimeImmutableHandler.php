@@ -47,7 +47,7 @@ final class DateTimeImmutableHandler implements SubscribingHandlerInterface
 		JsonSerializationVisitor $visitor,
 		\DateTimeImmutable $immutable,
 		array $type,
-		Context $context
+		Context $context,
 	): string
 	{
 		/** @var string */
@@ -65,7 +65,7 @@ final class DateTimeImmutableHandler implements SubscribingHandlerInterface
 		JsonDeserializationVisitor $visitor,
 		string $immutable,
 		array $type,
-		DeserializationContext $context
+		DeserializationContext $context,
 	): \DateTimeImmutable
 	{
 		$dateTimeImmutable = \DateTimeImmutable::createFromFormat(DATE_ATOM, $immutable);

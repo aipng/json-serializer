@@ -9,12 +9,8 @@ use JMS\Serializer\Annotation as Serializer;
 final class DateTimeImmutableObject
 {
 
-	/**
-	 * @var \DateTimeImmutable|null
-	 *
-	 * @Serializer\Type("DateTimeImmutable")
-	 */
-	private $dateTime;
+	#[Serializer\Type(\DateTimeImmutable::class)]
+	private ?\DateTimeImmutable $dateTime;
 
 
 	public function __construct(?\DateTimeImmutable $dateTime = null)

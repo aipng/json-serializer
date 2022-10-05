@@ -10,12 +10,8 @@ use JMS\Serializer\Annotation as Serializer;
 final class EmailObject
 {
 
-	/**
-	 * @var \AipNg\ValueObjects\Web\Email|null
-	 *
-	 * @Serializer\Type("AipNg\ValueObjects\Web\Email")
-	 */
-	private $email;
+	#[Serializer\Type(Email::class)]
+	private ?Email $email;
 
 
 	public function __construct(?Email $email = null)

@@ -26,14 +26,14 @@
 		"sort-packages": true
 	},
 	"require": {
-		"php": ">= 7.2",
+		"php": ">= 8.1",
 		"jms/serializer": "^3.3",
-		"symfony/cache": "^5.4"
+		"symfony/cache": "^v6.1.5"
 	},
 	"require-dev": {
 		"aipng/value-objects": "^2.1",
 		"mikey179/vfsstream": "^1.6",
-		"nette/di": "^3.0",
+		"nette/di": "^v3.0",
 		"phpstan/phpstan": "^1.8.2",
 		"phpstan/phpstan-phpunit": "^1.1.1",
 		"phpunit/phpunit": "^9.1"
