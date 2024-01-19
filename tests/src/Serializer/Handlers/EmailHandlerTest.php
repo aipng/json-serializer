@@ -20,7 +20,7 @@ final class EmailHandlerTest extends TestCase
 		$email = $this->createEmail();
 		$expectedResult = sprintf(
 			'"%s"',
-			$email->getValue()
+			$email->getValue(),
 		);
 
 		$json = $this->createSerializer()->serialize($email);
@@ -34,7 +34,7 @@ final class EmailHandlerTest extends TestCase
 		$email = $this->createEmail();
 		$expectedResult = sprintf(
 			'{"email":"%s"}',
-			$email->getValue()
+			$email->getValue(),
 		);
 
 		$json = $this->createSerializer()->serialize(new EmailObject($email));
@@ -58,7 +58,7 @@ final class EmailHandlerTest extends TestCase
 		$email = $this->createEmail();
 		$json = sprintf(
 			'{"email":"%s"}',
-			$email->getValue()
+			$email->getValue(),
 		);
 
 		/** @var \AipNg\JsonSerializerTests\Serializer\Handlers\TestObject\EmailObject $object */

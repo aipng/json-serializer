@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace AipNg\JsonSerializer\Serializer\Adapter;
 
 use AipNg\JsonSerializer\Serializer\JsonSerializerInterface;
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
@@ -76,8 +75,6 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 
 	private function createSerializer(): SerializerInterface
 	{
-		AnnotationRegistry::registerLoader('class_exists');
-
 		$builder = SerializerBuilder::create();
 		$builder
 			->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy)

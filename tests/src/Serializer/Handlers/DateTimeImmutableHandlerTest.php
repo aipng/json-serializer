@@ -19,7 +19,7 @@ final class DateTimeImmutableHandlerTest extends TestCase
 		$dateTimeImmutable = $this->createDateTimeImmutable();
 		$expectedResult = sprintf(
 			'"%s"',
-			$dateTimeImmutable->format(\DateTime::ATOM)
+			$dateTimeImmutable->format(\DateTime::ATOM),
 		);
 
 		$json = $this->getSerializer()->serialize($dateTimeImmutable);
@@ -34,7 +34,7 @@ final class DateTimeImmutableHandlerTest extends TestCase
 		$object = new DateTimeImmutableObject($dateTimeImmutable);
 		$expectedResult = sprintf(
 			'{"dateTime":"%s"}',
-			$dateTimeImmutable->format(\DateTime::ATOM)
+			$dateTimeImmutable->format(\DateTime::ATOM),
 		);
 
 		$json = $this->getSerializer()->serialize($object);
@@ -59,7 +59,7 @@ final class DateTimeImmutableHandlerTest extends TestCase
 		$dateTimeImmutable = $this->createDateTimeImmutable();
 		$json = sprintf(
 			'{"dateTime":"%s"}',
-			$dateTimeImmutable->format(\DateTime::ATOM)
+			$dateTimeImmutable->format(\DateTime::ATOM),
 		);
 
 		/** @var \AipNg\JsonSerializerTests\Serializer\Handlers\TestObject\DateTimeImmutableObject $object */

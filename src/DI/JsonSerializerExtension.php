@@ -50,7 +50,7 @@ final class JsonSerializerExtension extends CompilerExtension
 		if (!($temporaryDirectory && is_writable($temporaryDirectory))) {
 			throw new InvalidArgumentException(sprintf(
 				'Temporary directory must be writable (\'%s\' given)!',
-				$temporaryDirectory
+				$temporaryDirectory,
 			));
 		}
 
@@ -58,7 +58,7 @@ final class JsonSerializerExtension extends CompilerExtension
 			'%s%s%s',
 			$temporaryDirectory,
 			DIRECTORY_SEPARATOR,
-			self::CACHE_DIRECTORY_NAME
+			self::CACHE_DIRECTORY_NAME,
 		);
 	}
 
@@ -94,7 +94,7 @@ final class JsonSerializerExtension extends CompilerExtension
 		if (!class_exists($handler)) {
 			throw new InvalidArgumentException(sprintf(
 				'Serialization handler (\'%s\') does not exist!',
-				$handler
+				$handler,
 			));
 		}
 

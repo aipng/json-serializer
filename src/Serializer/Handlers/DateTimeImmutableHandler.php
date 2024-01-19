@@ -73,7 +73,7 @@ final class DateTimeImmutableHandler implements SubscribingHandlerInterface
 		if (!$dateTimeImmutable) {
 			throw new InvalidArgumentException(sprintf(
 				'String in DATE_ATOM format expected, \'%s\' given!',
-				$immutable
+				$immutable,
 			));
 		}
 

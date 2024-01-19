@@ -20,7 +20,7 @@ final class UrlHandlerTest extends TestCase
 		$url = $this->createUrl();
 		$expectedResult = sprintf(
 			'"%s"',
-			addcslashes($url->getValue(), '/')
+			addcslashes($url->getValue(), '/'),
 		);
 
 		$json = $this->createSerializer()->serialize($url);
@@ -35,7 +35,7 @@ final class UrlHandlerTest extends TestCase
 		$object = new UrlObject($url);
 		$expectedResult = sprintf(
 			'{"url":"%s"}',
-			addcslashes($url->getValue(), '/')
+			addcslashes($url->getValue(), '/'),
 		);
 
 		$json = $this->createSerializer()->serialize($object);
@@ -59,7 +59,7 @@ final class UrlHandlerTest extends TestCase
 		$url = $this->createUrl();
 		$json = sprintf(
 			'{"url":"%s"}',
-			addcslashes($url->getValue(), '/')
+			addcslashes($url->getValue(), '/'),
 		);
 
 		/** @var \AipNg\JsonSerializerTests\Serializer\Handlers\TestObject\UrlObject $object */
