@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 final class JsonSerializerExtensionTest extends TestCase
 {
 
-	private const EXTENSION_NAME = 'apiSerializer';
+	private const string EXTENSION_NAME = 'apiSerializer';
 
 
 	public function testDIExtensionCreatesSerializerFactory(): void

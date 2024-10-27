@@ -15,7 +15,7 @@ use JMS\Serializer\SerializerInterface;
 final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 {
 
-	private const JSON = 'json';
+	private const string JSON = 'json';
 
 	/** @var \JMS\Serializer\Handler\SubscribingHandlerInterface[] */
 	private array $handlers = [];

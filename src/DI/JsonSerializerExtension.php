@@ -18,7 +18,7 @@ use Nette\Schema\Schema;
 final class JsonSerializerExtension extends CompilerExtension
 {
 
-	private const CACHE_DIRECTORY_NAME = 'JmsJsonSerializer.metadata';
+	private const string CACHE_DIRECTORY_NAME = 'JmsJsonSerializer.metadata';
 
 
 	public function getConfigSchema(): Schema
