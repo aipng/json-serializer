@@ -81,6 +81,7 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 			->setSerializationContextFactory(function (): SerializationContext {
 				return SerializationContext::create()->setSerializeNull(true);
 			})
+			->enableEnumSupport()
 			->addDefaultHandlers();
 
 		$this->registerHandlers($builder);
