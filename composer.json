@@ -12,10 +12,7 @@
 	"autoload": {
 		"psr-4": {
 			"AipNg\\JsonSerializer\\": "src/"
-		},
-		"classmap": [
-			"src/Exception"
-		]
+		}
 	},
 	"autoload-dev": {
 		"psr-4": {

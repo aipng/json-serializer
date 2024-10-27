@@ -20,7 +20,7 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 	/** @var \JMS\Serializer\Handler\SubscribingHandlerInterface[] */
 	private array $handlers = [];
 
-	private ?string $annotationCacheDir = null;
+	private ?string $cacheDir = null;
 
 	private bool $productionMode = true;
 
@@ -47,9 +47,9 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 	}
 
 
-	public function setCache(string $annotationCacheDir): JmsJsonSerializerAdapter
+	public function setCache(string $cacheDir): JmsJsonSerializerAdapter
 	{
-		$this->annotationCacheDir = $annotationCacheDir;
+		$this->cacheDir = $cacheDir;
 
 		return $this;
 	}
@@ -85,9 +85,9 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 
 		$this->registerHandlers($builder);
 
-		if ($this->annotationCacheDir) {
+		if ($this->cacheDir) {
 			$builder
-				->setCacheDir($this->annotationCacheDir)
+				->setCacheDir($this->cacheDir)
 				->setDebug(!$this->productionMode);
 		}
 
