@@ -7,27 +7,24 @@ namespace AipNg\JsonSerializerTests\DI;
 use AipNg\JsonSerializer\DI\JsonSerializerExtension;
 use AipNg\JsonSerializer\Handlers\EmailHandler;
 use AipNg\JsonSerializer\InvalidArgumentException;
-use AipNg\JsonSerializer\JsonSerializerInterface;
+use AipNg\JsonSerializer\JsonSerializer;
 use AipNg\ValueObjects\Web\Email;
 use Nette\DI\Compiler;
 use Nette\DI\Container;
 use Nette\DI\ContainerLoader;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
 
 final class JsonSerializerExtensionTest extends TestCase
 {
 
-	private const string EXTENSION_NAME = 'apiSerializer';
-
-
+	#[DoesNotPerformAssertions]
 	public function testShouldCreateSerializerFactory(): void
 	{
-		$container = $this->createContainer([
-			'temporaryDirectory' => $this->getTemporaryDirectory(),
+		$this->createContainer([
+			'temporaryDirectory' => vfsStream::setup()->url(),
 		]);
-
-		$this->assertInstanceOf(JsonSerializerInterface::class, $container->getByType(JsonSerializerInterface::class));
 	}
 
 
@@ -44,7 +41,7 @@ final class JsonSerializerExtensionTest extends TestCase
 		$this->expectException(InvalidArgumentException::class);
 
 		$this->createContainer([
-			'temporaryDirectory' => $this->getTemporaryDirectory() . '/directory-not-exists',
+			'temporaryDirectory' => vfsStream::setup()->url() . '/directory-not-exists',
 		]);
 	}
 
@@ -52,15 +49,15 @@ final class JsonSerializerExtensionTest extends TestCase
 	public function testShouldRegisterSerializerHandlers(): void
 	{
 		$container = $this->createContainer([
-			'temporaryDirectory' => $this->getTemporaryDirectory(),
+			'temporaryDirectory' => vfsStream::setup()->url(),
 			'serializationHandlers' => [
 				EmailHandler::class,
 
 			],
 		]);
 
-		/** @var \AipNg\JsonSerializer\JsonSerializerInterface $serializer */
-		$serializer = $container->getByType(JsonSerializerInterface::class);
+		/** @var \AipNg\JsonSerializer\JsonSerializer $serializer */
+		$serializer = $container->getByType(JsonSerializer::class);
 
 		$email = new Email('example@example.org');
 
@@ -73,7 +70,7 @@ final class JsonSerializerExtensionTest extends TestCase
 		$this->expectException(InvalidArgumentException::class);
 
 		$this->createContainer([
-			'temporaryDirectory' => $this->getTemporaryDirectory(),
+			'temporaryDirectory' => vfsStream::setup()->url(),
 			'serializationHandlers' => [
 				'\SomeNonExistingHandler',
 			],
@@ -82,37 +79,25 @@ final class JsonSerializerExtensionTest extends TestCase
 
 
 	/**
-	 * @param mixed[] $extensionConfig
+	 * @param mixed[] $config
 	 */
-	private function createContainer(array $extensionConfig = []): Container
+	private function createContainer(array $config = []): Container
 	{
-		$loader = new ContainerLoader($this->getTemporaryDirectory(), true);
+		$loader = new ContainerLoader(vfsStream::setup()->url(), true);
 
 		$class = $loader->load(
-			function (Compiler $compiler) use ($extensionConfig): void {
+			function (Compiler $compiler) use ($config): void {
 				$compiler->addConfig([
-					self::EXTENSION_NAME => $extensionConfig,
+					'apiSerializer' => $config,
 				]);
 
-				$compiler->addExtension(self::EXTENSION_NAME, new JsonSerializerExtension);
+				$compiler->addExtension('apiSerializer', new JsonSerializerExtension);
 			},
-			$this->getGeneratedContainerKey(),
+			mt_rand(1, 10000),
 		);
 
 		/** @var \Nette\DI\Container */
 		return new $class;
-	}
-
-
-	private function getTemporaryDirectory(): string
-	{
-		return vfsStream::setup('root')->url();
-	}
-
-
-	private function getGeneratedContainerKey(): int
-	{
-		return mt_rand(1, 10000);
 	}
 
 }

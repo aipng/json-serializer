@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AipNg\JsonSerializerTests\Adapter\Fixtures;
+namespace AipNg\JsonSerializerTests\Fixtures;
 
 use JMS\Serializer\Annotation\Type;
 

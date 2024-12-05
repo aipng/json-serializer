@@ -4,23 +4,28 @@ declare(strict_types = 1);
 
 namespace AipNg\JsonSerializerTests\Integration;
 
-use AipNg\JsonSerializer\Adapter\JmsJsonSerializerAdapter;
 use AipNg\JsonSerializer\Handlers\EmailHandler;
 use AipNg\JsonSerializer\Handlers\UrlHandler;
+use AipNg\JsonSerializer\JmsJsonSerializer;
+use AipNg\JsonSerializer\Validator;
 use AipNg\JsonSerializerTests\Integration\Fixtures\ObjectWithEmailAndUrl;
 use AipNg\ValueObjects\Web\Email;
 use AipNg\ValueObjects\Web\Url;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class AdapterHandlerTest extends TestCase
 {
 
-	private JmsJsonSerializerAdapter $serializer;
+	private JmsJsonSerializer $serializer;
+
+	private Validator & MockObject $validator;
 
 
 	protected function setUp(): void
 	{
-		$this->serializer = new JmsJsonSerializerAdapter;
+		$this->validator = $this->createMock(Validator::class);
+		$this->serializer = new JmsJsonSerializer($this->validator);
 		$this->serializer
 			->addSubscribingHandler(new EmailHandler)
 			->addSubscribingHandler(new UrlHandler);

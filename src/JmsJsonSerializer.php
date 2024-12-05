@@ -2,9 +2,8 @@
 
 declare(strict_types = 1);
 
-namespace AipNg\JsonSerializer\Adapter;
+namespace AipNg\JsonSerializer;
 
-use AipNg\JsonSerializer\JsonSerializerInterface;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
@@ -12,7 +11,7 @@ use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 
-final class JmsJsonSerializerAdapter implements JsonSerializerInterface
+final class JmsJsonSerializer implements JsonSerializer
 {
 
 	private const string JSON = 'json';
@@ -27,6 +26,11 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 	private ?SerializerInterface $serializer = null;
 
 
+	public function __construct(private readonly Validator $validator)
+	{
+	}
+
+
 	public function serialize(mixed $data): string
 	{
 		return $this->getSerializer()->serialize($data, self::JSON);
@@ -35,9 +39,16 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 
 	public function deserialize(string $json, string $type): mixed
 	{
-		return $this->getSerializer()->deserialize($json, $type, self::JSON);
-	}
+		try {
+			$object = $this->getSerializer()->deserialize($json, $type, self::JSON);
+		} catch (\Throwable) {
+			throw new InvalidArgumentException('Unable to deserialize given JSON.');
+		}
 
+		$this->validator->validate($object);
+
+		return $object;
+	}
 
 
 	public function addSubscribingHandler(SubscribingHandlerInterface $handler): self

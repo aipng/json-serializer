@@ -7,7 +7,7 @@ namespace AipNg\JsonSerializerTests\Handlers\TestObject;
 use AipNg\ValueObjects\Web\Email;
 use JMS\Serializer\Annotation as Serializer;
 
-final class EmailObject
+final class ObjectWithEmail
 {
 
 	#[Serializer\Type(Email::class)]

@@ -2,24 +2,25 @@
 
 declare(strict_types = 1);
 
-namespace AipNg\JsonSerializerTests\Adapter;
+namespace AipNg\JsonSerializerTests;
 
-use AipNg\JsonSerializer\Adapter\JmsJsonSerializerAdapter;
-use AipNg\JsonSerializerTests\Adapter\Fixtures\MyEnum;
-use AipNg\JsonSerializerTests\Adapter\Fixtures\NestedObject;
-use AipNg\JsonSerializerTests\Adapter\Fixtures\NullableObject;
-use AipNg\JsonSerializerTests\Adapter\Fixtures\SimpleObject;
+use AipNg\JsonSerializer\JmsJsonSerializer;
+use AipNg\JsonSerializer\Validator;
+use AipNg\JsonSerializerTests\Fixtures\MyEnum;
+use AipNg\JsonSerializerTests\Fixtures\NestedObject;
+use AipNg\JsonSerializerTests\Fixtures\NullableObject;
+use AipNg\JsonSerializerTests\Fixtures\SimpleObject;
 use PHPUnit\Framework\TestCase;
 
-final class JmsJsonSerializerAdapterTest extends TestCase
+final class JmsJsonSerializerTest extends TestCase
 {
 
-	private JmsJsonSerializerAdapter $serializer;
+	private JmsJsonSerializer $serializer;
 
 
 	protected function setUp(): void
 	{
-		$this->serializer = new JmsJsonSerializerAdapter;
+		$this->serializer = new JmsJsonSerializer($this->createMock(Validator::class));
 	}
 
 
@@ -45,7 +46,7 @@ final class JmsJsonSerializerAdapterTest extends TestCase
 	}
 
 
-	public function testShouldSerializeAndDeserializaNullables(): void
+	public function testShouldSerializeAndDeserializeNullables(): void
 	{
 		$testObject = new NullableObject;
 

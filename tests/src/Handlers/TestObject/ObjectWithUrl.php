@@ -7,7 +7,7 @@ namespace AipNg\JsonSerializerTests\Handlers\TestObject;
 use AipNg\ValueObjects\Web\Url;
 use JMS\Serializer\Annotation as Serializer;
 
-final class UrlObject
+final class ObjectWithUrl
 {
 
 	#[Serializer\Type(Url::class)]

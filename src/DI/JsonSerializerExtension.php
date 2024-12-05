@@ -4,11 +4,13 @@ declare(strict_types = 1);
 
 namespace AipNg\JsonSerializer\DI;
 
-use AipNg\JsonSerializer\Adapter\JmsJsonSerializerAdapter;
 use AipNg\JsonSerializer\InvalidArgumentException;
+use AipNg\JsonSerializer\JmsJsonSerializer;
+use AipNg\JsonSerializer\Validator\NullValidator;
 use Nette\DI\CompilerExtension;
 use Nette\DI\ContainerBuilder;
 use Nette\DI\Definitions\ServiceDefinition;
+use Nette\DI\Definitions\Statement;
 use Nette\Schema\Expect;
 use Nette\Schema\Schema;
 
@@ -25,8 +27,12 @@ final class JsonSerializerExtension extends CompilerExtension
 	{
 		return Expect::structure([
 			'temporaryDirectory' => Expect::string(),
-			'productionMode' => Expect::bool(false),
+			'productionMode' => Expect::bool(true),
 			'serializationHandlers' => Expect::arrayOf(Expect::string())->default([]),
+			'validator' => Expect::anyOf(
+				Expect::string(),
+				Expect::type(Statement::class),
+			)->default(NullValidator::class),
 		]);
 	}
 
@@ -35,15 +41,33 @@ final class JsonSerializerExtension extends CompilerExtension
 	{
 		$builder = $this->getContainerBuilder();
 
-		$this->registerSerializer($builder);
+		$serializerDefinition = $builder
+			->addDefinition($this->prefix('serializer'))
+			->setFactory(JmsJsonSerializer::class)
+			->setArgument(
+				'validator',
+				$this->getValidatorDefinition($builder),
+			)
+			->addSetup('setCache', [
+				$this->getCacheDirectory(),
+			])
+			->addSetup('setProductionMode', [
+				$this->config->productionMode,
+			]);
+
+		$this->registerSerializationHandlers($builder, $serializerDefinition);
 	}
 
 
-	private function registerSerializer(ContainerBuilder $builder): void
+	private function getValidatorDefinition(ContainerBuilder $builder): ServiceDefinition
 	{
-		$serializerDefinition = $this->registerSerializerDefinition($builder);
-
-		$this->registerSerializationHandlers($builder, $serializerDefinition);
+		return $builder
+			->addDefinition($this->prefix('validator'))
+			->setFactory(
+				$this->config->validator instanceof Statement
+					? $this->config->validator
+					: new Statement($this->config->validator),
+			);
 	}
 
 
@@ -64,20 +88,6 @@ final class JsonSerializerExtension extends CompilerExtension
 			DIRECTORY_SEPARATOR,
 			self::CACHE_DIRECTORY_NAME,
 		);
-	}
-
-
-	private function registerSerializerDefinition(ContainerBuilder $builder): ServiceDefinition
-	{
-		return $builder
-			->addDefinition($this->prefix('serializer'))
-			->setFactory(JmsJsonSerializerAdapter::class)
-			->addSetup('setCache', [
-				$this->getCacheDirectory(),
-			])
-			->addSetup('setProductionMode', [
-				$this->config->productionMode,
-			]);
 	}
 
 

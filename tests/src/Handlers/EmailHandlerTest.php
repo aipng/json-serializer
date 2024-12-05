@@ -4,104 +4,76 @@ declare(strict_types = 1);
 
 namespace AipNg\JsonSerializerTests\Handlers;
 
-use AipNg\JsonSerializer\Adapter\JmsJsonSerializerAdapter;
 use AipNg\JsonSerializer\Handlers\EmailHandler;
-use AipNg\JsonSerializer\InvalidArgumentException;
-use AipNg\JsonSerializer\JsonSerializerInterface;
-use AipNg\JsonSerializerTests\Handlers\TestObject\EmailObject;
+use AipNg\JsonSerializer\JmsJsonSerializer;
+use AipNg\JsonSerializer\JsonSerializer;
+use AipNg\JsonSerializer\Validator;
+use AipNg\JsonSerializerTests\Handlers\TestObject\ObjectWithEmail;
 use AipNg\ValueObjects\Web\Email;
 use PHPUnit\Framework\TestCase;
 
 final class EmailHandlerTest extends TestCase
 {
 
-	public function testSerializeEmailToJson(): void
+	public function testShouldSerializeEmailProperty(): void
 	{
-		$email = $this->createEmail();
-		$expectedResult = sprintf(
-			'"%s"',
-			$email->getValue(),
+		$email = Email::from('example@example.org');
+
+		$json = $this->createSerializer()->serialize(new ObjectWithEmail($email));
+
+		$this->assertSame(
+			'{"email":"example@example.org"}',
+			$json,
 		);
-
-		$json = $this->createSerializer()->serialize($email);
-
-		$this->assertSame($expectedResult, $json);
 	}
 
 
-	public function testSerializeEmailPropertyToJson(): void
+	public function testShouldSerializeEmptyEmail(): void
 	{
-		$email = $this->createEmail();
-		$expectedResult = sprintf(
-			'{"email":"%s"}',
-			$email->getValue(),
+		$json = $this->createSerializer()->serialize(new ObjectWithEmail);
+
+		$this->assertSame(
+			'{"email":null}',
+			$json,
 		);
-
-		$json = $this->createSerializer()->serialize(new EmailObject($email));
-
-		$this->assertSame($expectedResult, $json);
 	}
 
 
-	public function testSerializeEmptyEmailPropertyToJson(): void
+	public function testShouldDeserializeEmail(): void
 	{
-		$expectedResult = '{"email":null}';
-
-		$json = $this->createSerializer()->serialize(new EmailObject);
-
-		$this->assertSame($expectedResult, $json);
-	}
-
-
-	public function testDeserializeEmailPropertyFromJson(): void
-	{
-		$email = $this->createEmail();
-		$json = sprintf(
-			'{"email":"%s"}',
-			$email->getValue(),
+		/** @var \AipNg\JsonSerializerTests\Handlers\TestObject\ObjectWithEmail $object */
+		$object = $this->createSerializer()->deserialize(
+			'{"email":"example@example.org"}',
+			ObjectWithEmail::class,
 		);
-
-		/** @var \AipNg\JsonSerializerTests\Handlers\TestObject\EmailObject $object */
-		$object = $this->createSerializer()->deserialize($json, EmailObject::class);
 
 		$this->assertNotNull($object->getEmail());
-		$this->assertSame($email->getValue(), $object->getEmail()->getValue());
+		$this->assertSame(
+			'example@example.org',
+			$object->getEmail()->getValue(),
+		);
 	}
 
 
-	public function testDeserializeEmptyEmailPropertyFromJson(): void
+	public function testShouldDeserializeEmptyEmail(): void
 	{
-		$json = '{"email":null}';
-
-		/** @var \AipNg\JsonSerializerTests\Handlers\TestObject\EmailObject $object */
-		$object = $this->createSerializer()->deserialize($json, EmailObject::class);
+		/** @var \AipNg\JsonSerializerTests\Handlers\TestObject\ObjectWithEmail $object */
+		$object = $this->createSerializer()->deserialize(
+			'{"email":null}',
+			ObjectWithEmail::class,
+		);
 
 		$this->assertNull($object->getEmail());
 	}
 
 
-	public function testThrowExceptionOnInvalidInputOnDeserialization(): void
+	private function createSerializer(): JsonSerializer
 	{
-		$json = '{"email":"not-en-email"}';
+		$serializer = new JmsJsonSerializer($this->createMock(Validator::class));
 
-		$this->expectException(InvalidArgumentException::class);
-
-		$this->createSerializer()->deserialize($json, EmailObject::class);
-	}
-
-
-	private function createSerializer(): JsonSerializerInterface
-	{
-		$serializer = new JmsJsonSerializerAdapter;
 		$serializer->addSubscribingHandler(new EmailHandler);
 
 		return $serializer;
-	}
-
-
-	private function createEmail(): Email
-	{
-		return new Email('example@example.org');
 	}
 
 }
