@@ -11,6 +11,7 @@ use AipNg\JsonSerializerTests\Integration\Fixtures\ObjectWithEmailAndUrl;
 use AipNg\ValueObjects\Web\Email;
 use AipNg\ValueObjects\Web\Url;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AdapterHandlerTest extends TestCase
 {
@@ -20,7 +21,7 @@ class AdapterHandlerTest extends TestCase
 
 	protected function setUp(): void
 	{
-		$this->serializer = new JmsJsonSerializerAdapter;
+		$this->serializer = new JmsJsonSerializerAdapter($this->createMock(ValidatorInterface::class));
 		$this->serializer
 			->addSubscribingHandler(new EmailHandler)
 			->addSubscribingHandler(new UrlHandler);

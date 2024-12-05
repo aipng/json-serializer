@@ -9,6 +9,7 @@ use AipNg\JsonSerializerTests\Adapter\Fixtures\NestedObject;
 use AipNg\JsonSerializerTests\Adapter\Fixtures\NullableObject;
 use AipNg\JsonSerializerTests\Adapter\Fixtures\SimpleObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class JmsJsonSerializerAdapterTest extends TestCase
 {
@@ -18,7 +19,7 @@ final class JmsJsonSerializerAdapterTest extends TestCase
 
 	protected function setUp(): void
 	{
-		$this->serializer = new JmsJsonSerializerAdapter;
+		$this->serializer = new JmsJsonSerializerAdapter($this->createMock(ValidatorInterface::class));
 	}
 
 

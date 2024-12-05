@@ -90,6 +90,11 @@ final class JsonSerializerExtensionTest extends TestCase
 
 		$class = $loader->load(
 			function (Compiler $compiler) use ($extensionConfig): void {
+				$compiler
+					->getContainerBuilder()
+					->addDefinition('validator')
+					->setType(FakeValidator::class);
+
 				$compiler->addConfig([
 					self::EXTENSION_NAME => $extensionConfig,
 				]);

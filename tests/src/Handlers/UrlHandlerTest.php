@@ -11,6 +11,7 @@ use AipNg\JsonSerializer\JsonSerializerInterface;
 use AipNg\JsonSerializerTests\Handlers\TestObject\UrlObject;
 use AipNg\ValueObjects\Web\Url;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class UrlHandlerTest extends TestCase
 {
@@ -92,7 +93,7 @@ final class UrlHandlerTest extends TestCase
 
 	private function createSerializer(): JsonSerializerInterface
 	{
-		$serializer = new JmsJsonSerializerAdapter;
+		$serializer = new JmsJsonSerializerAdapter($this->createMock(ValidatorInterface::class));
 		$serializer->addSubscribingHandler(new UrlHandler);
 
 		return $serializer;

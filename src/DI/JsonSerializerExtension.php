@@ -11,6 +11,7 @@ use Nette\DI\ContainerBuilder;
 use Nette\DI\Definitions\ServiceDefinition;
 use Nette\Schema\Expect;
 use Nette\Schema\Schema;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @property \stdClass $config
@@ -69,9 +70,12 @@ final class JsonSerializerExtension extends CompilerExtension
 
 	private function registerSerializerDefinition(ContainerBuilder $builder): ServiceDefinition
 	{
+		$validator = $builder->getDefinitionByType(ValidatorInterface::class);
+
 		return $builder
 			->addDefinition($this->prefix('serializer'))
 			->setFactory(JmsJsonSerializerAdapter::class)
+			->setArguments([$validator])
 			->addSetup('setCache', [
 				$this->getCacheDirectory(),
 			])
