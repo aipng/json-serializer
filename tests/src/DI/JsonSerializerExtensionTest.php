@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace AipNg\JsonSerializerTests\DI;
 
-use AipNg\JsonSerializer\DI\JsonSerializerConfig;
 use AipNg\JsonSerializer\DI\JsonSerializerExtension;
 use AipNg\JsonSerializer\Handlers\EmailHandler;
 use AipNg\JsonSerializer\InvalidArgumentException;
@@ -24,10 +23,9 @@ final class JsonSerializerExtensionTest extends TestCase
 
 	public function testDIExtensionCreatesSerializerFactory(): void
 	{
-		$config = new JsonSerializerConfig;
-		$config->temporaryDirectory = $this->getTemporaryDirectory();
-
-		$container = $this->createContainer((array) $config);
+		$container = $this->createContainer([
+			'temporaryDirectory' => $this->getTemporaryDirectory(),
+		]);
 
 		$this->assertInstanceOf(JsonSerializerInterface::class, $container->getByType(JsonSerializerInterface::class));
 	}
@@ -35,34 +33,31 @@ final class JsonSerializerExtensionTest extends TestCase
 
 	public function testThrowExceptionWhenTemporaryDirectoryNotSet(): void
 	{
-		$config = new JsonSerializerConfig;
-
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->createContainer((array) $config);
+		$this->createContainer();
 	}
 
 
 	public function testThrowExceptionWhenGivenTemporaryDirectoryIsNotWritable(): void
 	{
-		$config = new JsonSerializerConfig;
-		$config->temporaryDirectory = $this->getTemporaryDirectory() . '/directory-not-exists';
-
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->createContainer((array) $config);
+		$this->createContainer([
+			'temporaryDirectory' => $this->getTemporaryDirectory() . '/directory-not-exists',
+		]);
 	}
 
 
 	public function testSerializerFactoryRegistersSerializerHandlers(): void
 	{
-		$config = new JsonSerializerConfig;
-		$config->temporaryDirectory = $this->getTemporaryDirectory();
-		$config->serializationHandlers = [
-			EmailHandler::class,
-		];
+		$container = $this->createContainer([
+			'temporaryDirectory' => $this->getTemporaryDirectory(),
+			'serializationHandlers' => [
+				EmailHandler::class,
 
-		$container = $this->createContainer((array) $config);
+			],
+		]);
 
 		/** @var \AipNg\JsonSerializer\JsonSerializerInterface $serializer */
 		$serializer = $container->getByType(JsonSerializerInterface::class);
@@ -75,15 +70,14 @@ final class JsonSerializerExtensionTest extends TestCase
 
 	public function testThrowExceptionOnInvalidSerializerHandler(): void
 	{
-		$config = new JsonSerializerConfig;
-		$config->temporaryDirectory = $this->getTemporaryDirectory();
-		$config->serializationHandlers = [
-			'\SomeNonExistingHandler',
-		];
-
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->createContainer((array) $config);
+		$this->createContainer([
+			'temporaryDirectory' => $this->getTemporaryDirectory(),
+			'serializationHandlers' => [
+				'\SomeNonExistingHandler',
+			],
+		]);
 	}
 
 

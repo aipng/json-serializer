@@ -13,7 +13,7 @@ use Nette\Schema\Expect;
 use Nette\Schema\Schema;
 
 /**
- * @property \AipNg\JsonSerializer\DI\JsonSerializerConfig $config
+ * @property \stdClass $config
  */
 final class JsonSerializerExtension extends CompilerExtension
 {
@@ -23,7 +23,11 @@ final class JsonSerializerExtension extends CompilerExtension
 
 	public function getConfigSchema(): Schema
 	{
-		return Expect::from(new JsonSerializerConfig);
+		return Expect::structure([
+			'temporaryDirectory' => Expect::string(),
+			'productionMode' => Expect::bool(false),
+			'serializationHandlers' => Expect::arrayOf(Expect::string())->default([]),
+		]);
 	}
 
 
