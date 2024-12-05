@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AipNg\JsonSerializer\Serializer\Handlers;
+namespace AipNg\JsonSerializer\Handlers;
 
 use AipNg\JsonSerializer\InvalidArgumentException;
 use AipNg\ValueObjects\Web\Email;

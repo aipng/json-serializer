@@ -2,13 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace AipNg\JsonSerializerTests\Serializer\Handlers;
+namespace AipNg\JsonSerializerTests\Handlers;
 
+use AipNg\JsonSerializer\Adapter\JmsJsonSerializerAdapter;
+use AipNg\JsonSerializer\Handlers\UrlHandler;
 use AipNg\JsonSerializer\InvalidArgumentException;
-use AipNg\JsonSerializer\Serializer\Adapter\JmsJsonSerializerAdapter;
-use AipNg\JsonSerializer\Serializer\Handlers\UrlHandler;
-use AipNg\JsonSerializer\Serializer\JsonSerializerInterface;
-use AipNg\JsonSerializerTests\Serializer\Handlers\TestObject\UrlObject;
+use AipNg\JsonSerializer\JsonSerializerInterface;
+use AipNg\JsonSerializerTests\Handlers\TestObject\UrlObject;
 use AipNg\ValueObjects\Web\Url;
 use PHPUnit\Framework\TestCase;
 
@@ -62,7 +62,7 @@ final class UrlHandlerTest extends TestCase
 			addcslashes($url->getValue(), '/'),
 		);
 
-		/** @var \AipNg\JsonSerializerTests\Serializer\Handlers\TestObject\UrlObject $object */
+		/** @var \AipNg\JsonSerializerTests\Handlers\TestObject\UrlObject $object */
 		$object = $this->createSerializer()->deserialize($json, UrlObject::class);
 
 		$this->assertEquals($url, $object->getUrl());
@@ -73,7 +73,7 @@ final class UrlHandlerTest extends TestCase
 	{
 		$json = '{"url":null}';
 
-		/** @var \AipNg\JsonSerializerTests\Serializer\Handlers\TestObject\UrlObject $object */
+		/** @var \AipNg\JsonSerializerTests\Handlers\TestObject\UrlObject $object */
 		$object = $this->createSerializer()->deserialize($json, UrlObject::class);
 
 		$this->assertNull($object->getUrl());

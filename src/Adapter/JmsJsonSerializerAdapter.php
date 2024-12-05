@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace AipNg\JsonSerializer\Serializer\Adapter;
+namespace AipNg\JsonSerializer\Adapter;
 
-use AipNg\JsonSerializer\Serializer\JsonSerializerInterface;
+use AipNg\JsonSerializer\JsonSerializerInterface;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;

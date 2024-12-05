@@ -6,9 +6,9 @@ namespace AipNg\JsonSerializerTests\DI;
 
 use AipNg\JsonSerializer\DI\JsonSerializerConfig;
 use AipNg\JsonSerializer\DI\JsonSerializerExtension;
+use AipNg\JsonSerializer\Handlers\EmailHandler;
 use AipNg\JsonSerializer\InvalidArgumentException;
-use AipNg\JsonSerializer\Serializer\Handlers\EmailHandler;
-use AipNg\JsonSerializer\Serializer\JsonSerializerInterface;
+use AipNg\JsonSerializer\JsonSerializerInterface;
 use AipNg\ValueObjects\Web\Email;
 use Nette\DI\Compiler;
 use Nette\DI\Container;
@@ -64,7 +64,7 @@ final class JsonSerializerExtensionTest extends TestCase
 
 		$container = $this->createContainer((array) $config);
 
-		/** @var \AipNg\JsonSerializer\Serializer\JsonSerializerInterface $serializer */
+		/** @var \AipNg\JsonSerializer\JsonSerializerInterface $serializer */
 		$serializer = $container->getByType(JsonSerializerInterface::class);
 
 		$email = new Email('example@example.org');

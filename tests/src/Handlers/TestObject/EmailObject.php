@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AipNg\JsonSerializerTests\Serializer\Handlers\TestObject;
+namespace AipNg\JsonSerializerTests\Handlers\TestObject;
 
 use AipNg\ValueObjects\Web\Email;
 use JMS\Serializer\Annotation as Serializer;

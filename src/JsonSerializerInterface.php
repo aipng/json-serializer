@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AipNg\JsonSerializer\Serializer;
+namespace AipNg\JsonSerializer;
 
 interface JsonSerializerInterface
 {

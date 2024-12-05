@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace AipNg\JsonSerializer\DI;
 
+use AipNg\JsonSerializer\Adapter\JmsJsonSerializerAdapter;
 use AipNg\JsonSerializer\InvalidArgumentException;
-use AipNg\JsonSerializer\Serializer\Adapter\JmsJsonSerializerAdapter;
 use Nette\DI\CompilerExtension;
 use Nette\DI\ContainerBuilder;
 use Nette\DI\Definitions\ServiceDefinition;
