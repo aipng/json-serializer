@@ -21,7 +21,7 @@ final class JsonSerializerExtensionTest extends TestCase
 	private const string EXTENSION_NAME = 'apiSerializer';
 
 
-	public function testDIExtensionCreatesSerializerFactory(): void
+	public function testShouldCreateSerializerFactory(): void
 	{
 		$container = $this->createContainer([
 			'temporaryDirectory' => $this->getTemporaryDirectory(),
@@ -31,7 +31,7 @@ final class JsonSerializerExtensionTest extends TestCase
 	}
 
 
-	public function testThrowExceptionWhenTemporaryDirectoryNotSet(): void
+	public function testShouldThrowExceptionWhenTemporaryDirectoryNotSet(): void
 	{
 		$this->expectException(InvalidArgumentException::class);
 
@@ -39,7 +39,7 @@ final class JsonSerializerExtensionTest extends TestCase
 	}
 
 
-	public function testThrowExceptionWhenGivenTemporaryDirectoryIsNotWritable(): void
+	public function testShouldThrowExceptionWhenGivenTemporaryDirectoryNotWritable(): void
 	{
 		$this->expectException(InvalidArgumentException::class);
 
@@ -49,7 +49,7 @@ final class JsonSerializerExtensionTest extends TestCase
 	}
 
 
-	public function testSerializerFactoryRegistersSerializerHandlers(): void
+	public function testShouldRegisterSerializerHandlers(): void
 	{
 		$container = $this->createContainer([
 			'temporaryDirectory' => $this->getTemporaryDirectory(),
@@ -68,7 +68,7 @@ final class JsonSerializerExtensionTest extends TestCase
 	}
 
 
-	public function testThrowExceptionOnInvalidSerializerHandler(): void
+	public function testShouldThrowExceptionOnInvalidSerializerHandler(): void
 	{
 		$this->expectException(InvalidArgumentException::class);
 
@@ -88,18 +88,19 @@ final class JsonSerializerExtensionTest extends TestCase
 	{
 		$loader = new ContainerLoader($this->getTemporaryDirectory(), true);
 
-		$class = $loader->load(function (Compiler $compiler) use ($extensionConfig): void {
-			$compiler->addConfig([
-				self::EXTENSION_NAME => $extensionConfig,
-			]);
+		$class = $loader->load(
+			function (Compiler $compiler) use ($extensionConfig): void {
+				$compiler->addConfig([
+					self::EXTENSION_NAME => $extensionConfig,
+				]);
 
-			$compiler->addExtension(self::EXTENSION_NAME, new JsonSerializerExtension);
-		}, $this->getGeneratedContainerKey());
+				$compiler->addExtension(self::EXTENSION_NAME, new JsonSerializerExtension);
+			},
+			$this->getGeneratedContainerKey(),
+		);
 
-		/** @var \Nette\DI\Container $container */
-		$container = new $class;
-
-		return $container;
+		/** @var \Nette\DI\Container */
+		return new $class;
 	}
 
 
