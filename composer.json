@@ -16,7 +16,8 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"AipNg\\JsonSerializerTests\\": "tests/src/"
+			"AipNg\\JsonSerializerTests\\": "tests/src/",
+			"AipNg\\JsonSerializerTests\\Integration\\": "tests/integration"
 		}
 	},
 	"config": {
