@@ -39,7 +39,8 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 	}
 
 
-	public function addSubscribingHandler(SubscribingHandlerInterface $handler): JmsJsonSerializerAdapter
+
+	public function addSubscribingHandler(SubscribingHandlerInterface $handler): self
 	{
 		$this->handlers[] = $handler;
 
@@ -47,7 +48,7 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 	}
 
 
-	public function setCache(string $cacheDir): JmsJsonSerializerAdapter
+	public function setCache(string $cacheDir): self
 	{
 		$this->cacheDir = $cacheDir;
 
@@ -55,7 +56,7 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 	}
 
 
-	public function setProductionMode(bool $productionMode): JmsJsonSerializerAdapter
+	public function setProductionMode(bool $productionMode): self
 	{
 		$this->productionMode = $productionMode;
 
