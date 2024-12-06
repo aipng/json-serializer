@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace AipNg\JsonSerializerTests\Adapter;
 
 use AipNg\JsonSerializer\Adapter\JmsJsonSerializerAdapter;
+use AipNg\JsonSerializerTests\Adapter\Fixtures\MyEnum;
 use AipNg\JsonSerializerTests\Adapter\Fixtures\NestedObject;
 use AipNg\JsonSerializerTests\Adapter\Fixtures\NullableObject;
 use AipNg\JsonSerializerTests\Adapter\Fixtures\SimpleObject;
@@ -29,6 +30,7 @@ final class JmsJsonSerializerAdapterTest extends TestCase
 			'name',
 			new \DateTimeImmutable('2024-09-21'),
 			true,
+			MyEnum::FOO,
 		);
 
 		$serializedJson = $this->serializer->serialize($testObject);
@@ -39,6 +41,7 @@ final class JmsJsonSerializerAdapterTest extends TestCase
 		$this->assertSame($testObject->name, $deserializedObject->name);
 		$this->assertSame($testObject->date->format('Y-m-d'), $deserializedObject->date->format('Y-m-d'));
 		$this->assertSame($testObject->active, $deserializedObject->active);
+		$this->assertSame($testObject->myEnum->value, $deserializedObject->myEnum->value);
 	}
 
 
@@ -64,6 +67,7 @@ final class JmsJsonSerializerAdapterTest extends TestCase
 				'name',
 				new \DateTimeImmutable('2024-09-21'),
 				true,
+				MyEnum::FOO,
 			),
 		);
 
@@ -75,6 +79,7 @@ final class JmsJsonSerializerAdapterTest extends TestCase
 		$this->assertSame($testObject->object->name, $deserializedObject->object->name);
 		$this->assertSame($testObject->object->date->format('Y-m-d'), $deserializedObject->object->date->format('Y-m-d'));
 		$this->assertSame($testObject->object->active, $deserializedObject->object->active);
+		$this->assertSame($testObject->object->myEnum->value, $deserializedObject->object->myEnum->value);
 	}
 
 }
