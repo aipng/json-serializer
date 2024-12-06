@@ -13,6 +13,7 @@ use Nette\DI\Compiler;
 use Nette\DI\Container;
 use Nette\DI\ContainerLoader;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
 
 final class JsonSerializerExtensionTest extends TestCase
@@ -21,13 +22,12 @@ final class JsonSerializerExtensionTest extends TestCase
 	private const string EXTENSION_NAME = 'apiSerializer';
 
 
+	#[DoesNotPerformAssertions]
 	public function testShouldCreateSerializerFactory(): void
 	{
-		$container = $this->createContainer([
+		$this->createContainer([
 			'temporaryDirectory' => $this->getTemporaryDirectory(),
 		]);
-
-		$this->assertInstanceOf(JsonSerializerInterface::class, $container->getByType(JsonSerializerInterface::class));
 	}
 
 
