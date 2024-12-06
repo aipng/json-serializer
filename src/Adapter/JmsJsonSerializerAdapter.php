@@ -41,9 +41,6 @@ final class JmsJsonSerializerAdapter implements JsonSerializerInterface
 	}
 
 
-	/**
-	 * @throws \AipNg\JsonSerializer\ValidationException
-	 */
 	public function deserialize(string $json, string $type): mixed
 	{
 		try {
