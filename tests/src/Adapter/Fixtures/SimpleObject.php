@@ -15,6 +15,7 @@ final class SimpleObject
 		#[Type(name: 'DateTimeImmutable<"Y-m-d">')]
 		public \DateTimeImmutable $date,
 		public bool $active,
+		public MyEnum $myEnum,
 	)
 	{
 	}
