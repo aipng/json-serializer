@@ -26,8 +26,7 @@
 	"require": {
 		"php": ">= 8.3",
 		"jms/serializer": "^3.31.1",
-		"symfony/cache": "^v7.1",
-		"symfony/validator": "^7.2"
+		"symfony/cache": "^v7.1"
 	},
 	"require-dev": {
 		"aipng/value-objects": "^3.1",
@@ -36,10 +35,12 @@
 		"phpstan/phpstan": "^2.0.3",
 		"phpstan/phpstan-nette": "^2.0",
 		"phpstan/phpstan-phpunit": "^2.0.1",
-		"phpunit/phpunit": "^11.4.2"
+		"phpunit/phpunit": "^11.4.2",
+		"symfony/validator": "^7.2"
 	},
 	"suggest": {
-		"aipng/value-objects": "For custom serialization of AipNg value objects",
-		"nette/di": "To serializer service with a Nette DI extension (use 3.x)"
+		"aipng/value-objects": "Custom serialization of AipNg value objects",
+		"contributte/validator": "To use symfony/validator adapter with a Nette DI extension",
+		"nette/di": "Register serializer in Nette DI container"
 	}
 }
