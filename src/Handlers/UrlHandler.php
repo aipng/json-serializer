@@ -66,12 +66,12 @@ final class UrlHandler implements SubscribingHandlerInterface
 	{
 		try {
 			if (!is_string($url)) {
-				throw new InvalidArgumentException('Url must be a string!', 404);
+				throw new InvalidArgumentException('Url must be a string!', 400);
 			}
 
 			return Url::from($url);
 		} catch (UrlArgumentException $e) {
-			$exception = new InvalidArgumentException('Invalid input!', 404, $e);
+			$exception = new InvalidArgumentException('Invalid input!', 400, $e);
 
 			throw $exception
 				->withError(

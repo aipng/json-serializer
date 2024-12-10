@@ -66,12 +66,12 @@ final class EmailHandler implements SubscribingHandlerInterface
 	{
 		try {
 			if (!is_string($email)) {
-				throw new InvalidArgumentException('Email must be a string!', 404);
+				throw new InvalidArgumentException('Email must be a string!', 400);
 			}
 
 			return Email::from($email);
 		} catch (EmailArgumentException $e) {
-			$exception = new InvalidArgumentException('Invalid input!', 404, $e);
+			$exception = new InvalidArgumentException('Invalid input!', 400, $e);
 
 			throw $exception
 				->withError(

@@ -76,7 +76,7 @@ final class EmailHandlerIntegrationTest extends TestCase
 				ObjectWithEmail::class,
 			);
 		} catch (InvalidArgumentException $e) {
-			$this->assertSame(404, $e->getCode());
+			$this->assertSame(400, $e->getCode());
 			$this->assertSame('Invalid JSON input!', $e->getMessage());
 			$this->assertArrayHasKey('email', $e->getContext());
 			$this->assertCount(1, $e->getContext()['email']);
