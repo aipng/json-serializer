@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace AipNg\JsonSerializer\Handlers;
 
 use AipNg\JsonSerializer\InvalidArgumentException;
+use AipNg\ValueObjects\InvalidArgumentException as UrlArgumentException;
 use AipNg\ValueObjects\Web\Url;
 use JMS\Serializer\Context;
 use JMS\Serializer\DeserializationContext;
@@ -43,6 +44,8 @@ final class UrlHandler implements SubscribingHandlerInterface
 	 * @param \AipNg\ValueObjects\Web\Url $url
 	 * @param mixed[] $type
 	 * @param \JMS\Serializer\Context $context
+	 *
+	 * @return string
 	 */
 	public function serializeToJson(JsonSerializationVisitor $visitor, Url $url, array $type, Context $context): string
 	{
@@ -53,18 +56,28 @@ final class UrlHandler implements SubscribingHandlerInterface
 
 	/**
 	 * @param \JMS\Serializer\JsonDeserializationVisitor $visitor
-	 * @param string $url
+	 * @param mixed $url
 	 * @param mixed[] $type
 	 * @param \JMS\Serializer\DeserializationContext $context
 	 *
 	 * @return \AipNg\ValueObjects\Web\Url
 	 */
-	public function deserializeFromJson(JsonDeserializationVisitor $visitor, string $url, array $type, DeserializationContext $context): Url
+	public function deserializeFromJson(JsonDeserializationVisitor $visitor, mixed $url, array $type, DeserializationContext $context): Url
 	{
 		try {
+			if (!is_string($url)) {
+				throw new InvalidArgumentException('Url must be a string!', 404);
+			}
+
 			return Url::from($url);
-		} catch (\AipNg\ValueObjects\InvalidArgumentException $e) {
-			throw new InvalidArgumentException('Unable to deserialize given URL!', 0, $e);
+		} catch (UrlArgumentException $e) {
+			$exception = new InvalidArgumentException('Invalid input!', 404, $e);
+
+			throw $exception
+				->withError(
+					join('.', $context->getCurrentPath()),
+					$e->getMessage(),
+				);
 		}
 	}
 

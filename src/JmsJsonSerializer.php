@@ -41,8 +41,16 @@ final class JmsJsonSerializer implements JsonSerializer
 	{
 		try {
 			$object = $this->getSerializer()->deserialize($json, $type, self::JSON);
-		} catch (\Throwable) {
-			throw new InvalidArgumentException('Unable to deserialize given JSON.');
+		} catch (InvalidArgumentException $e) {
+			$exception = new InvalidArgumentException('Invalid JSON input!', $e->getCode(), $e);
+
+			foreach ($e->getContext() as $key => $messages) {
+				foreach ($messages as $message) {
+					$exception->withError($key, $message);
+				}
+			}
+
+			throw $exception;
 		}
 
 		$this->validator->validate($object);

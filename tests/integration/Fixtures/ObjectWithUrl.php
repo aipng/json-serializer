@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AipNg\JsonSerializerTests\Handlers\TestObject;
+namespace AipNg\JsonSerializerTests\Integration\Fixtures;
 
 use AipNg\ValueObjects\Web\Url;
 use JMS\Serializer\Annotation as Serializer;
